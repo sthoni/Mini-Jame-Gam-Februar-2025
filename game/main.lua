@@ -2,7 +2,7 @@ function love.load()
 end
 
 function love.update()
-	print("Hello!")
+	print("Hello!!!")
 end
 
 function love.draw()
