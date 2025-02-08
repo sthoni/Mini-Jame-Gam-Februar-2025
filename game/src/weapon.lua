@@ -39,7 +39,7 @@ local function Weapon(x, y)
 		y = y,
 		angle = 0,
 		weaponsEquipped = {},
-		createWeaponComponent = function (weapon)
+		createWeaponComponent = function(weapon)
 			local weaponToCreate
 			for key, value in pairs(weaponsData) do
 				if key == weapon then
@@ -48,14 +48,15 @@ local function Weapon(x, y)
 			end
 			return weaponToCreate
 		end,
-		addWeapon = function (self, weapon)
+		addWeapon = function(self, weapon)
 			local weaponToAdd = self.createWeaponComponent(weapon)
 			table.insert(self.weaponsEquipped, weaponToAdd)
-			tick.recur(function ()
-				projectile.new(weaponToAdd.baseDamage, weaponToAdd.baseSpeed, self.x, self.y, self.angle, weaponToAdd.spriteX, weaponToAdd.spriteY, weaponToAdd.spriteWidth, weaponToAdd.spriteHeight)
+			tick.recur(function()
+				projectile.new(weaponToAdd.baseDamage, weaponToAdd.baseSpeed, self.x, self.y, self.angle,
+					weaponToAdd.spriteX, weaponToAdd.spriteY, weaponToAdd.spriteWidth, weaponToAdd.spriteHeight)
 			end, weaponToAdd.baseRate)
 		end,
-		update = function (self, dt, playerX, playerY, playerAngle)
+		update = function(self, dt, playerX, playerY, playerAngle)
 			tick.update(dt)
 			self.x = playerX
 			self.y = playerY

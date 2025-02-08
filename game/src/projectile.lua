@@ -9,7 +9,7 @@ local projectiles = {}
 
 function Projectile()
 	return {
-		new = function (damage, speed, positionX, positionY, angle, spriteX, spriteY, spriteWidth, spriteHeight)
+		new = function(damage, speed, positionX, positionY, angle, spriteX, spriteY, spriteWidth, spriteHeight)
 			local quad = love.graphics.newQuad(spriteX, spriteY, spriteWidth, spriteHeight, projectile_tilemap)
 			if quad then
 				table.insert(projectiles, {
@@ -22,7 +22,7 @@ function Projectile()
 				})
 			end
 		end,
-		update = function (self, dt)
+		update = function(self, dt)
 			for _, projectile in ipairs(projectiles) do
 				local x_vel = projectile.speed * math.cos(projectile.angle - math.pi / 2) * dt
 				local y_vel = projectile.speed * math.sin(projectile.angle - math.pi / 2) * dt
@@ -30,7 +30,7 @@ function Projectile()
 				projectile.y = projectile.y + y_vel
 			end
 		end,
-		draw = function (self)
+		draw = function(self)
 			projectile_tilemap_batch:clear()
 			for _, projectile in ipairs(projectiles) do
 				projectile_tilemap_batch:add(projectile.quad, math.floor(projectile.x), math.floor(projectile.y))

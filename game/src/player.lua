@@ -1,23 +1,23 @@
-local Shape = require "src//Shape"
+local Shape = require "src.Shape"
 local Weapon = require "src.weapon"
 local Player = Shape:extend()
 
 function Player:move() -- key, scancode )
-	local acc, rot, dt = 0, 0, 1
+	local acc, rot = 0, 0
 
 	if love.keyboard.isDown("up") then -- move right
 		acc = 10
-	elseif love.keyboard.isDown("down") then -- move left
-		acc = -10
+	elseif love.keyboard.isDown("down") then
+		acc = -2
 	end
-	
+
 	--check separately, if lef/right is pressed
-	if love.keyboard.isDown("left") then -- move down
+	if love.keyboard.isDown("left") then   -- move down
 		rot = -2
 	elseif love.keyboard.isDown("right") then -- move up
 		rot = 2
 	end
-	
+
 	player.rot = rot
 	player.acc = acc
 	-- if player.rot <= -5 then
@@ -27,7 +27,7 @@ function Player:move() -- key, scancode )
 	-- else
 	-- 	player.rot = 5
 	-- end
- end
+end
 
 function Player:update(dt)
 	Player.super.update(self, dt)
@@ -52,12 +52,12 @@ end
 
 function Player:draw()
 	local width, height = love.graphics.getDimensions()
-	local centerX = width/2
-	local centerY = height/2
+	local centerX = width / 2
+	local centerY = height / 2
 	love.graphics.push("all")
-	love.graphics.translate(self.x + self.h/2, self.y + self.w/2)
+	love.graphics.translate(self.x + self.h / 2, self.y + self.w / 2)
 	love.graphics.rotate(self.angle)
-	love.graphics.draw(self.tileset,self.quad, -self.h/2, -self.w/2)
+	love.graphics.draw(self.tileset, self.quad, -self.h / 2, -self.w / 2)
 	-- love.graphics.rectangle("fill", self.x, self.y, self.h, self.w)
 	love.graphics.pop()
 	-- love.graphics.rotate(-self.angle)

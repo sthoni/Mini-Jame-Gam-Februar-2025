@@ -18,28 +18,27 @@ function Level()
 	for baseY = 0, LEVEL_HEIGHT, 16 do
 		for baseX = 0, LEVEL_WIDTH, 16 do
 			local quad = (
-			love.math.random() < .02 and LEVEL_TILEMAP_TREEDOUBLE or
-			love.math.random() < .03 and LEVEL_TILEMAP_TREE or
-			love.math.random() < .005 and LEVEL_TILEMAP_BUSH or
-			love.math.random() < .001 and LEVEL_TILEMAP_HOUSE or
-			love.math.random() < .001 and LEVEL_TILEMAP_HOUSE2 or
-			love.math.random() < 0.1 and LEVEL_TILEMAP_GRASS or 
-			love.math.random() < 0.1 and LEVEL_TILEMAP_GRASS2)
+				love.math.random() < .02 and LEVEL_TILEMAP_TREEDOUBLE or
+				love.math.random() < .03 and LEVEL_TILEMAP_TREE or
+				love.math.random() < .005 and LEVEL_TILEMAP_BUSH or
+				love.math.random() < .001 and LEVEL_TILEMAP_HOUSE or
+				love.math.random() < .001 and LEVEL_TILEMAP_HOUSE2 or
+				love.math.random() < 0.1 and LEVEL_TILEMAP_GRASS or
+				love.math.random() < 0.1 and LEVEL_TILEMAP_GRASS2)
 			if quad then
 				table.insert(tiles, {
 					quad = quad,
 					x = baseX,
 					y = baseY,
 					serial = #tiles,
-				})	
+				})
 			end
-			
 		end
 	end
 
 	return {
-		draw = function(self)		
-			table.sort(tiles, function (tile1, tile2)
+		draw = function(self)
+			table.sort(tiles, function(tile1, tile2)
 				if tile1.y ~= tile2.y then
 					return tile1.y < tile2.y
 				end
