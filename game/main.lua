@@ -9,21 +9,22 @@ local Enemy = require "src.enemy"
 
 local gameWidth, gameHeight = 640, 360
 local windowWidth, windowHeight = love.window.getDesktopDimensions()
-windowWidth, windowHeight = windowWidth * .7, windowHeight * .7
+windowWidth, windowHeight = windowWidth * .5, windowHeight * .5
 
-push:setupScreen(gameWidth, gameHeight, windowWidth, windowHeight, { fullscreen = false, pixelperfect = true })
-push:setBorderColor(.714, .835, .235, 1)
-
+push:setupScreen(gameWidth, gameHeight, windowWidth, windowHeight,
+	{ fullscreen = false, resizable = true, pixelperfect = true, highdpi = true })
+love.graphics.setBackgroundColor(.714, .835, .235, 1)
+push:setBorderColor(0, 0, 0, 1)
 
 function love.load()
 	love.graphics.setDefaultFilter('nearest', 'nearest')
-	cam = gamera.new(0, 0, 6400, 3600)
+	cam = gamera.new(0, 0, 3200, 1800)
 	cam:setWindow(0, 0, 640, 360)
 
 	level = level()
 	projectile = projectile()
 	player = Player(1000, 1000)
-	enemy = Enemy(1010, 1030)
+	enemy = Enemy(900, 1100)
 	love.keyboard.setKeyRepeat(true)
 end
 

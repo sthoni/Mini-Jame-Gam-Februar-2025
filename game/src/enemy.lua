@@ -19,7 +19,7 @@ function Enemy:new(x, y)
 	self.w = 16
 	self.velocity = 25
 	self.tileset = love.graphics.newImage("assets//ships.png")
-	self.quad = love.graphics.newQuad(72, 173, self.h, self.w, self.tileset)
+	self.quad = love.graphics.newQuad(71, 173, self.h, self.w, self.tileset)
 	self.maxspeed = 50
 end
 

@@ -1,6 +1,6 @@
 function Level()
-	local LEVEL_WIDTH = 6400
-	local LEVEL_HEIGHT = 3600
+	local LEVEL_WIDTH = 3200
+	local LEVEL_HEIGHT = 1800
 
 	local LEVEL_TILEMAP = love.graphics.newImage("assets/tiles.png")
 	local LEVEL_TILEMAP_BATCH = love.graphics.newSpriteBatch(LEVEL_TILEMAP)
@@ -11,6 +11,7 @@ function Level()
 	local LEVEL_TILEMAP_HOUSE = love.graphics.newQuad(0, 102, 16, 16, LEVEL_TILEMAP)
 	local LEVEL_TILEMAP_HOUSE2 = love.graphics.newQuad(0, 119, 16, 16, LEVEL_TILEMAP)
 	local LEVEL_TILEMAP_TREEDOUBLE = love.graphics.newQuad(0, 85, 16, 16, LEVEL_TILEMAP)
+	local LEVEL_TILEMAP_GREEN = love.graphics.newQuad(17, 51, 16, 16, LEVEL_TILEMAP)
 
 
 	local tiles = {}
@@ -24,7 +25,8 @@ function Level()
 				love.math.random() < .001 and LEVEL_TILEMAP_HOUSE or
 				love.math.random() < .001 and LEVEL_TILEMAP_HOUSE2 or
 				love.math.random() < 0.1 and LEVEL_TILEMAP_GRASS or
-				love.math.random() < 0.1 and LEVEL_TILEMAP_GRASS2)
+				love.math.random() < 0.2 and LEVEL_TILEMAP_GRASS2 or
+				LEVEL_TILEMAP_GREEN)
 			if quad then
 				table.insert(tiles, {
 					quad = quad,
