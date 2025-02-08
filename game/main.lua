@@ -1,10 +1,19 @@
+
+
 function love.load()
+	Object = require "lib//classic" --class imitation for lua
+	local Player = require "src//player"
+
+	player = Player(100, 100)
+	print(player.test)
+	love.keyboard.setKeyRepeat(true)
 end
 
-function love.update()
-	print("Hello!!!")
+function love.update(dt)
+	player:update(dt)
 end
 
 function love.draw()
-	love.graphics.rectangle("fill", 10, 10, 20, 20)
+	player:draw()
+	love.graphics.rectangle("fill", 100, 100, 20, 10)
 end
