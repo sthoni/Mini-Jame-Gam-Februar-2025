@@ -1,3 +1,4 @@
+require "src.constants"
 local level = require "src.level"
 local gamera= require "lib.gamera"
 local push = require "lib.push"
@@ -19,17 +20,21 @@ function love.load()
 	cam:setWindow(0,0,640,360)
 	
 	level = Level()
-	player = Player(1000, 1000)
-	player.collider = HC.circle(1000,1000,8)
-	print(player.test)
+	player = Player(PLAYER_SPAWN_POINT_X, PLAYER_SPAWN_POINT_Y)
 	love.keyboard.setKeyRepeat(true)
+	Collider = HC.new(500)
+    Rect = Collider:rectangle(PLAYER_SPAWN_POINT_X,PLAYER_SPAWN_POINT_Y + 200,50,50)
+	player.collisionshape = Collider:circle(PLAYER_SPAWN_POINT_X,PLAYER_SPAWN_POINT_Y, 8)
 end
 
 function love.update(dt)
 	--process collisions:
-	for shape, delta in pairs(HC.collisions(player)) do
+	-- p = pairs(Collider:collisions(player.collisionshape))
+	for shape, delta in pairs(Collider:collisions(player.collisionshape)) do
     	print("collision")
-		-- shape:move(delta.x, delta.y)
+		shape:move(delta.x*2, delta.y*2)
+		player.collision_move(delta.x, delta.y)
+
 	end
 
 	player:update(dt)
@@ -38,9 +43,13 @@ end
 
 function love.draw()
 	push:start()
+	-- shapes can be drawn to the screen
+	love.graphics.setColor(255,255,255)
 	cam:draw(function (l, t, w, h)
 		level:draw()
 		player:draw()
+		Rect:draw('fill')
+		player.collisionshape:draw('fill')
 	end)
-	push:finish()
+	push:finish()    
 end

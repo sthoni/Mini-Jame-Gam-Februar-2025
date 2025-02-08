@@ -18,11 +18,11 @@ end
 
 function Shape:update(dt)
 	self.move()
-	player.speed.abs = player.speed.abs + player.acc * 100 * dt
-	if player.speed.abs > MAXSPD then
-		player.speed.abs = MAXSPD
-	elseif player.speed.abs < -MAXSPD then
-		player.speed.abs = -MAXSPD
+	self.speed.abs = self.speed.abs + self.acc * 100 * dt
+	if self.speed.abs > MAXSPD then
+		self.speed.abs = MAXSPD
+	elseif self.speed.abs < -MAXSPD then
+		self.speed.abs = -MAXSPD
 	end
 	self.angle = self.angle + 3 * math.abs(player.speed.abs)/MAXSPD * self.rot * dt
 	self.speed.x = self.speed.abs * math.cos(self.angle - math.pi/2)

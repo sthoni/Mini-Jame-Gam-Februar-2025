@@ -1,14 +1,24 @@
-HC = require 'HC'
+local IS_DEBUG = os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" and arg[2] == "debug"
+if IS_DEBUG then
+	require("lldebugger").start()
+
+	function love.errorhandler(msg)
+		error(msg, 2)
+	end
+end
+
+HC = require 'lib.HC'
 
 -- array to hold collision messages
 local text = {}
 
 function love.load()
     -- add a rectangle to the scene
-    rect = HC.rectangle(200,400,400,20)
+	collider = HC.new(300)
+    rect = collider:rectangle(200,400,400,20)
 
     -- add a circle to the scene
-    mouse = HC.circle(400,300,20)
+    mouse = collider:circle(400,300,20)
     mouse:moveTo(love.mouse.getPosition())
 end
 
@@ -20,7 +30,7 @@ function love.update(dt)
     rect:rotate(dt)
 
     -- check for collisions
-    for shape, delta in pairs(HC.collisions(mouse)) do
+    for shape, delta in pairs(collider:collisions(mouse)) do
         text[#text+1] = string.format("Colliding. Separating vector = (%s,%s)",
                                       delta.x, delta.y)
     end
