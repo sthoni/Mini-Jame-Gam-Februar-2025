@@ -1,4 +1,5 @@
 local level = require "src.level"
+local projectile = require "src.projectile"
 local gamera= require "lib.gamera"
 local push = require "lib.push"
 
@@ -18,7 +19,8 @@ function love.load()
 	cam:setWindow(0,0,640,360)
 
 
-	level = Level()
+	level = level()
+	projectile = projectile()
 	player = Player(1000, 1000)
 	print(player.test)
 	love.keyboard.setKeyRepeat(true)
@@ -26,6 +28,7 @@ end
 
 function love.update(dt)
 	player:update(dt)
+	projectile:update(dt)
 	cam:setPosition(player.x, player.y)
 end
 
@@ -33,6 +36,7 @@ function love.draw()
 	push:start()
 	cam:draw(function (l, t, w, h)
 		level:draw()
+		projectile:draw()
 		player:draw()
 	end)
 	push:finish()
