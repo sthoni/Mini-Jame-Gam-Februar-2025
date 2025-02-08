@@ -1,4 +1,5 @@
 local Shape = require "src//Shape"
+local Weapon = require "src.weapon"
 local Player = Shape:extend()
 
 function Player:move() -- key, scancode )
@@ -28,6 +29,16 @@ function Player:move() -- key, scancode )
 	-- end
  end
 
+function Player:update(dt)
+	Player.super.update(self, dt)
+	if love.keyboard.isDown("h") then
+		self.weapons.addWeapon(self.weapons, "machineGun")
+	end
+	for key, weapon in pairs(self.weapons.weaponsEquipped) do
+		print(weapon.baseDamage)
+	end
+end
+
 function Player:new(x, y)
 	Player.super.new(self, x, y)
 	self.test = math.random(1, 1000)
@@ -36,6 +47,7 @@ function Player:new(x, y)
 	self.velocity = 100
 	self.tileset = love.graphics.newImage("assets//ships.png")
 	self.quad = love.graphics.newQuad(34, 32, self.h, self.w, self.tileset)
+	self.weapons = Weapon()
 end
 
 function Player:draw()
