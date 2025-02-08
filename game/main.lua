@@ -1,5 +1,6 @@
 require "src.constants"
 local level = require "src.level"
+local projectile = require "src.projectile"
 local gamera= require "lib.gamera"
 local push = require "lib.push"
 HC = require 'lib.HC'
@@ -18,8 +19,9 @@ function love.load()
 	local Player = require "src//player"
 	cam = gamera.new(0, 0, 6400, 3600)
 	cam:setWindow(0,0,640,360)
-	
+
 	level = Level()
+	projectile = projectile()
 	player = Player(PLAYER_SPAWN_POINT_X, PLAYER_SPAWN_POINT_Y)
 	love.keyboard.setKeyRepeat(true)
 	Collider = HC.new(500)
@@ -38,6 +40,7 @@ function love.update(dt)
 	end
 
 	player:update(dt)
+	projectile:update(dt)
 	cam:setPosition(player.x, player.y)
 end
 
@@ -47,6 +50,7 @@ function love.draw()
 	love.graphics.setColor(255,255,255)
 	cam:draw(function (l, t, w, h)
 		level:draw()
+		projectile:draw()
 		player:draw()
 		Rect:draw('fill')
 		player.collisionshape:draw('fill')
