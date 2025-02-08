@@ -1,6 +1,6 @@
 function Level()
-	local LEVEL_WIDTH = 3200
-	local LEVEL_HEIGHT = 1800
+	local LEVEL_WIDTH = 6400
+	local LEVEL_HEIGHT = 3600
 
 	local LEVEL_TILEMAP = love.graphics.newImage("assets/tiles.png")
 	local LEVEL_TILEMAP_BATCH = love.graphics.newSpriteBatch(LEVEL_TILEMAP)
@@ -40,13 +40,6 @@ function Level()
 
 	return {
 		draw = function(self)
-			table.sort(tiles, function(tile1, tile2)
-				if tile1.y ~= tile2.y then
-					return tile1.y < tile2.y
-				end
-				return tile1.serial < tile2.serial
-			end)
-
 			LEVEL_TILEMAP_BATCH:clear()
 			for _, tile in ipairs(tiles) do
 				LEVEL_TILEMAP_BATCH:add(tile.quad, math.floor(tile.x), math.floor(tile.y))

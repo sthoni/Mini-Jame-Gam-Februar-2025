@@ -18,7 +18,7 @@ push:setBorderColor(0, 0, 0, 1)
 
 function love.load()
 	love.graphics.setDefaultFilter('nearest', 'nearest')
-	cam = gamera.new(0, 0, 3200, 1800)
+	cam = gamera.new(0, 0, 6400, 3600)
 	cam:setWindow(0, 0, 640, 360)
 
 	level = level()

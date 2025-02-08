@@ -26,7 +26,7 @@ local function Weapon(x, y)
 			name = "Lazer Gun",
 			baseDamage = 3,
 			baseRate = 2,
-			baseSpeed = 3000,
+			baseSpeed = 2000,
 			spriteX = 39,
 			spriteY = 1,
 			spriteWidth = 6,
