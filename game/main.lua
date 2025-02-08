@@ -1,42 +1,46 @@
-local level = require "src.level"
-local projectile = require "src.projectile"
-local gamera= require "lib.gamera"
+local Level = require "src.level"
+local Projectile = require "src.projectile"
+local gamera = require "lib.gamera"
 local push = require "lib.push"
+Object = require "lib.classic" --class imitation for lua
+require("lib.batteries"):export()
+local Player = require "src.player"
+local EnemyManager = require "src.enemyManager"
 
 local gameWidth, gameHeight = 640, 360
 local windowWidth, windowHeight = love.window.getDesktopDimensions()
-windowWidth, windowHeight = windowWidth * .7, windowHeight * .7
+windowWidth, windowHeight = windowWidth * .5, windowHeight * .5
 
-push:setupScreen(gameWidth, gameHeight, windowWidth, windowHeight, {fullscreen = false, pixelperfect = true})
-push:setBorderColor(.714, .835, .235, 1)
-
+push:setupScreen(gameWidth, gameHeight, windowWidth, windowHeight,
+	{ fullscreen = false, resizable = true, pixelperfect = true, highdpi = true })
+love.graphics.setBackgroundColor(.714, .835, .235, 1)
+push:setBorderColor(0, 0, 0, 1)
 
 function love.load()
-	love.graphics.setDefaultFilter( 'nearest', 'nearest' )
-	Object = require "lib//classic" --class imitation for lua
-	local Player = require "src//player"
+	love.graphics.setDefaultFilter('nearest', 'nearest')
 	cam = gamera.new(0, 0, 6400, 3600)
-	cam:setWindow(0,0,640,360)
+	cam:setWindow(0, 0, 640, 360)
 
-
-	level = level()
-	projectile = projectile()
+	enemyManager = EnemyManager()
+	level = Level()
+	projectile = Projectile()
 	player = Player(1000, 1000)
-	print(player.test)
 	love.keyboard.setKeyRepeat(true)
 end
 
 function love.update(dt)
 	player:update(dt)
+	enemyManager:update(dt)
 	projectile:update(dt)
 	cam:setPosition(player.x, player.y)
 end
 
 function love.draw()
 	push:start()
-	cam:draw(function (l, t, w, h)
+	cam:draw(function(l, t, w, h)
 		level:draw()
 		projectile:draw()
+		enemyManager:draw()
 		player:draw()
 	end)
 	push:finish()

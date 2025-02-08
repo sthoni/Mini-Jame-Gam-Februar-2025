@@ -26,7 +26,7 @@ local function Weapon(x, y)
 			name = "Lazer Gun",
 			baseDamage = 3,
 			baseRate = 2,
-			baseSpeed = 3000,
+			baseSpeed = 2000,
 			spriteX = 39,
 			spriteY = 1,
 			spriteWidth = 6,
@@ -39,23 +39,24 @@ local function Weapon(x, y)
 		y = y,
 		angle = 0,
 		weaponsEquipped = {},
-		createWeaponComponent = function (weapon)
+		createWeaponComponent = function(weaponType)
 			local weaponToCreate
 			for key, value in pairs(weaponsData) do
-				if key == weapon then
+				if key == weaponType then
 					weaponToCreate = value
 				end
 			end
 			return weaponToCreate
 		end,
-		addWeapon = function (self, weapon)
-			local weaponToAdd = self.createWeaponComponent(weapon)
+		addWeapon = function(self, weaponType)
+			local weaponToAdd = self.createWeaponComponent(weaponType)
 			table.insert(self.weaponsEquipped, weaponToAdd)
-			tick.recur(function ()
-				projectile.new(weaponToAdd.baseDamage, weaponToAdd.baseSpeed, self.x, self.y, self.angle, weaponToAdd.spriteX, weaponToAdd.spriteY, weaponToAdd.spriteWidth, weaponToAdd.spriteHeight)
+			tick.recur(function()
+				projectile.new(weaponToAdd.baseDamage, weaponToAdd.baseSpeed, self.x, self.y, self.angle,
+					weaponToAdd.spriteX, weaponToAdd.spriteY, weaponToAdd.spriteWidth, weaponToAdd.spriteHeight)
 			end, weaponToAdd.baseRate)
 		end,
-		update = function (self, dt, playerX, playerY, playerAngle)
+		update = function(self, dt, playerX, playerY, playerAngle)
 			tick.update(dt)
 			self.x = playerX
 			self.y = playerY
