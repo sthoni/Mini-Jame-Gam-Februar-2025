@@ -10,7 +10,7 @@ function Player:move() -- key, scancode )
 		acc = -10
 	end
 	
-	--check separately, if lef/right is pressed
+	--check separately, if lef/right is pressed:
 	if love.keyboard.isDown("left") then -- move down
 		rot = -2
 	elseif love.keyboard.isDown("right") then -- move up
@@ -19,18 +19,11 @@ function Player:move() -- key, scancode )
 	
 	player.rot = rot
 	player.acc = acc
-	-- if player.rot <= -5 then
-	-- 	player.rot = -5
-	-- elseif (player.rot > -5) and (player.rot < 5) then
-	-- 	player.rot = player.rot + rot * dt
-	-- else
-	-- 	player.rot = 5
-	-- end
  end
 
 function Player:new(x, y)
 	Player.super.new(self, x, y)
-	self.test = math.random(1, 1000)
+	Player.collider = HC.circle(100,100,20)
 	self.h = 32
 	self.w = 32
 	self.velocity = 100
@@ -46,10 +39,7 @@ function Player:draw()
 	love.graphics.translate(self.x + self.h/2, self.y + self.w/2)
 	love.graphics.rotate(self.angle)
 	love.graphics.draw(self.tileset,self.quad, -self.h/2, -self.w/2)
-	-- love.graphics.rectangle("fill", self.x, self.y, self.h, self.w)
 	love.graphics.pop()
-	-- love.graphics.rotate(-self.angle)
-	-- love.graphics.translate(-self.x, -self.y)
 end
 
 return Player
