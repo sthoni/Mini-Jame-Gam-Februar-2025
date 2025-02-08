@@ -1,9 +1,17 @@
-local Shape = require "src//Shape"
+local Shape = require "src.shape"
 local Enemy = Shape:extend()
 
 function Enemy:move() -- key, scancode )
 	local diffX = player.x - self.x
 	local diffY = player.y - self.y
+
+	if math.abs(diffX) > 350 then
+		self.x = player.x + love.math.random(-400, 400)
+	end
+
+	if math.abs(diffY) > 220 then
+		self.y = player.y + love.math.random(230, 300) * math.random_sign()
+	end
 
 	local diffVec = vec2(diffX, diffY)
 	self.angle = diffVec:angle() + math.pi / 2
@@ -12,12 +20,12 @@ function Enemy:move() -- key, scancode )
 	self.rot = 0
 end
 
-function Enemy:new(x, y)
-	Enemy.super:new(x, y)
-	self.test = math.random(1, 1000)
+function Enemy:new(x, y, baseHp, baseVelocity)
+	Enemy.super.new(self, x, y)
 	self.h = 32
 	self.w = 16
-	self.velocity = 25
+	self.hp = baseHp
+	self.velocity = baseVelocity
 	self.tileset = love.graphics.newImage("assets//ships.png")
 	self.quad = love.graphics.newQuad(71, 173, self.h, self.w, self.tileset)
 	self.maxspeed = 50

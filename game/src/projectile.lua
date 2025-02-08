@@ -7,7 +7,7 @@ local projectile_tilemap = love.graphics.newImage("assets/tiles.png")
 local projectile_tilemap_batch = love.graphics.newSpriteBatch(projectile_tilemap)
 local projectiles = {}
 
-function Projectile()
+local function Projectile()
 	return {
 		new = function(damage, speed, positionX, positionY, angle, spriteX, spriteY, spriteWidth, spriteHeight)
 			local quad = love.graphics.newQuad(spriteX, spriteY, spriteWidth, spriteHeight, projectile_tilemap)

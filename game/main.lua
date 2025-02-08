@@ -1,11 +1,11 @@
-local level = require "src.level"
-local projectile = require "src.projectile"
+local Level = require "src.level"
+local Projectile = require "src.projectile"
 local gamera = require "lib.gamera"
 local push = require "lib.push"
 Object = require "lib.classic" --class imitation for lua
 require("lib.batteries"):export()
 local Player = require "src.player"
-local Enemy = require "src.enemy"
+local EnemyManager = require "src.enemyManager"
 
 local gameWidth, gameHeight = 640, 360
 local windowWidth, windowHeight = love.window.getDesktopDimensions()
@@ -21,16 +21,16 @@ function love.load()
 	cam = gamera.new(0, 0, 6400, 3600)
 	cam:setWindow(0, 0, 640, 360)
 
-	level = level()
-	projectile = projectile()
+	enemyManager = EnemyManager()
+	level = Level()
+	projectile = Projectile()
 	player = Player(1000, 1000)
-	enemy = Enemy(900, 1100)
 	love.keyboard.setKeyRepeat(true)
 end
 
 function love.update(dt)
 	player:update(dt)
-	enemy:update(dt)
+	enemyManager:update(dt)
 	projectile:update(dt)
 	cam:setPosition(player.x, player.y)
 end
@@ -40,7 +40,7 @@ function love.draw()
 	cam:draw(function(l, t, w, h)
 		level:draw()
 		projectile:draw()
-		enemy:draw()
+		enemyManager:draw()
 		player:draw()
 	end)
 	push:finish()
