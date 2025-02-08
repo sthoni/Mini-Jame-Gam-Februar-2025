@@ -38,9 +38,7 @@ function Level()
 	end
 
 	return {
-		draw = function(self)
-			love.graphics.setBackgroundColor(.714, .835, .235)
-			
+		draw = function(self)		
 			table.sort(tiles, function (tile1, tile2)
 				if tile1.y ~= tile2.y then
 					return tile1.y < tile2.y
@@ -52,7 +50,6 @@ function Level()
 			for _, tile in ipairs(tiles) do
 				LEVEL_TILEMAP_BATCH:add(tile.quad, math.floor(tile.x), math.floor(tile.y))
 			end
-
 			love.graphics.draw(LEVEL_TILEMAP_BATCH)
 		end
 	}
