@@ -1,9 +1,10 @@
-
+local level = require "src.level"
 
 function love.load()
 	Object = require "lib//classic" --class imitation for lua
 	local Player = require "src//player"
-
+	
+	level = Level()
 	player = Player(100, 100)
 	print(player.test)
 	love.keyboard.setKeyRepeat(true)
@@ -15,5 +16,4 @@ end
 
 function love.draw()
 	player:draw()
-	love.graphics.rectangle("fill", 100, 100, 20, 10)
 end
