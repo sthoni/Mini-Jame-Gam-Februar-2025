@@ -24,8 +24,8 @@ function Projectile()
 		end,
 		update = function (self, dt)
 			for _, projectile in ipairs(projectiles) do
-				local x_vel = projectile.speed * math.cos(projectile.angle) * dt
-				local y_vel = -projectile.speed * math.sin(projectile.angle) * dt
+				local x_vel = projectile.speed * math.cos(projectile.angle - math.pi / 2) * dt
+				local y_vel = projectile.speed * math.sin(projectile.angle - math.pi / 2) * dt
 				projectile.x = projectile.x + x_vel
 				projectile.y = projectile.y + y_vel
 			end

@@ -33,10 +33,10 @@ function Player:update(dt)
 	Player.super.update(self, dt)
 	if love.keyboard.isDown("h") then
 		self.weapons.addWeapon(self.weapons, "machineGun")
+	elseif love.keyboard.isDown("k") then
+		self.weapons.addWeapon(self.weapons, "lazerGun")
 	end
-	for key, weapon in pairs(self.weapons.weaponsEquipped) do
-		print(weapon.baseDamage)
-	end
+	self.weapons.update(self.weapons, dt, self.x, self.y, self.angle)
 end
 
 function Player:new(x, y)
@@ -47,7 +47,7 @@ function Player:new(x, y)
 	self.velocity = 100
 	self.tileset = love.graphics.newImage("assets//ships.png")
 	self.quad = love.graphics.newQuad(34, 32, self.h, self.w, self.tileset)
-	self.weapons = Weapon()
+	self.weapons = Weapon(self.x, self.y)
 end
 
 function Player:draw()
