@@ -24,7 +24,7 @@ function Shape:update(dt)
 	elseif player.speed.abs < -MAXSPD then
 		player.speed.abs = -MAXSPD
 	end
-	self.angle = self.angle + self.rot * dt
+	self.angle = self.angle + 3 * math.abs(player.speed.abs)/MAXSPD * self.rot * dt
 	self.speed.x = self.speed.abs * math.cos(self.angle - math.pi/2)
 	self.speed.y = self.speed.abs * math.sin(self.angle - math.pi/2)
     self.x = self.x + self.speed.x * dt
