@@ -1,9 +1,11 @@
+local running = require "src.states.running"
 local font = love.graphics.getFont()
 
 local menu = {
 	text = love.graphics.newText(font,
 		"Controls: Press up to accelerate, down to reverse.\nPress left and right to steer.\nPress Enter to begin!\nPress q to quit."),
 	enter = function()
+		reset(running)
 	end,
 	exit = function()
 

@@ -29,6 +29,7 @@ local function PickupManager()
 				if pickup.position:distance(playerPosition) < 50 then
 					player.xp = player.xp + 1
 					player.maxSpeed = player.maxSpeed + 8
+					player.health.hp = player.health.hp + 2
 					player.speed.abs = player.speed.abs + 8
 					self.pickupsOnMap[key] = nil
 				end
