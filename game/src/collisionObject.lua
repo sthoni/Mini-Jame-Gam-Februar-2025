@@ -15,8 +15,8 @@ function CollisionObject:update(dt, x, y)
 end
 
 function CollisionObject:draw()
-	love.graphics.setColor(255,255,255)
-	self.collisionshape:draw('line')
+	-- love.graphics.setColor(255,255,255)
+	-- self.collisionshape:draw('line')
 end
 
 return CollisionObject
