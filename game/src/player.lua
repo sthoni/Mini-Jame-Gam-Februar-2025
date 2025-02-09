@@ -29,11 +29,11 @@ end
 
 function Player:update(dt)
 	Player.super.update(self, dt)
-	if love.keyboard.isDown("h") then
-		self.weapons.addWeapon(self.weapons, "machineGun")
-	elseif love.keyboard.isDown("k") then
-		self.weapons.addWeapon(self.weapons, "lazerGun")
-	end
+	-- if love.keyboard.isDown("h") then
+	-- 	self.weapons.addWeapon(self.weapons, "machineGun")
+	-- elseif love.keyboard.isDown("k") then
+	-- 	self.weapons.addWeapon(self.weapons, "lazerGun")
+	-- end
 	self.sounds:setPitch(0.5 + (self.speed.abs / self.maxSpeed) * 0.4)
 	self.weapons.update(self.weapons, dt, self.x, self.y, self.angle)
 	if self.health.hp < 1 then
