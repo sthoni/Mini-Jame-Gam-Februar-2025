@@ -4,7 +4,7 @@ local function EnemyManager()
 	local enemiesData = {
 		normal = {
 			baseHp = 10,
-			baseVelocity = 40,
+			maxSpeed = 40,
 			spriteX = 72,
 			spriteY = 172,
 			spriteW = 19,
@@ -12,7 +12,7 @@ local function EnemyManager()
 		},
 		hard = {
 			baseHp = 20,
-			baseVelocity = 30,
+			maxSpeed = 30,
 			spriteX = 34,
 			spriteY = 139,
 			spriteW = 30,
@@ -35,9 +35,8 @@ local function EnemyManager()
 			for key, enemy in pairs(enemiesData) do
 				if enemyType == key then
 					local spawnVector = self:getRandomSpawnPosition()
-					local enemyNew = Enemy(spawnVector.x, spawnVector.y, enemy.baseHp, enemy.baseVelocity, enemy.spriteX,
-						enemy
-						.spriteY, enemy.spriteW, enemy.spriteH)
+					local enemyNew = Enemy(spawnVector.x, spawnVector.y, enemy.baseHp, enemy.maxSpeed, enemy.spriteX,
+						enemy.spriteY, enemy.spriteW, enemy.spriteH)
 					table.insert(self.enemiesOnMap, enemyNew)
 				end
 			end
