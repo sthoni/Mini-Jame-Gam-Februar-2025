@@ -36,6 +36,9 @@ function Player:update(dt)
 	end
 	self.sounds:setPitch(0.5 + (self.speed.abs / self.maxSpeed) * 0.4)
 	self.weapons.update(self.weapons, dt, self.x, self.y, self.angle)
+	if self.health.hp < 1 then
+		Game:reset()
+	end
 end
 
 function Player:check_enemy_collision(EnemyManager)
