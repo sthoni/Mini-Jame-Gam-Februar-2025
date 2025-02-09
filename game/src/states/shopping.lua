@@ -1,7 +1,7 @@
 local font = love.graphics.getFont()
 
-local menu = {
-	text = love.graphics.newText(font, "Press Enter to begin!"),
+local shopping = {
+	text = love.graphics.newText(font, "Shop is closed for now.\nPress Return to return (no pun intended)."),
 	enter = function()
 	end,
 	exit = function()
@@ -13,8 +13,8 @@ local menu = {
 		end
 	end,
 	draw = function(self)
-		love.graphics.draw(self.text, 260, 180)
+		love.graphics.draw(self.text, 220, 180)
 	end
 }
 
-return menu
+return shopping

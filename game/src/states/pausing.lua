@@ -1,7 +1,7 @@
 local font = love.graphics.getFont()
 
-local menu = {
-	text = love.graphics.newText(font, "Press Enter to begin!"),
+local pausing = {
+	text = love.graphics.newText(font, "Press Return to unpause.\nPress q to quit."),
 	enter = function()
 	end,
 	exit = function()
@@ -10,6 +10,8 @@ local menu = {
 	update = function(self, dt)
 		if love.keyboard.isDown("return") then
 			Game:set_state("running")
+		elseif love.keyboard.isDown("q") then
+			love.event.quit()
 		end
 	end,
 	draw = function(self)
@@ -17,4 +19,4 @@ local menu = {
 	end
 }
 
-return menu
+return pausing

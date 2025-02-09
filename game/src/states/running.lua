@@ -13,7 +13,6 @@ local running = {
 	projectile = Projectile(),
 
 	enter = function()
-		print("Im State running")
 	end,
 	exit = function()
 
@@ -24,6 +23,11 @@ local running = {
 		self.projectile:update(dt)
 		self.pickupManager:update(dt)
 		self.cam:setPosition(player.x, player.y)
+		if love.keyboard.isDown("escape") then
+			Game:set_state("pausing")
+		elseif love.keyboard.isDown("b") then
+			Game:set_state("shopping")
+		end
 	end,
 	draw = function(self)
 		self.cam:draw(function(l, t, w, h)
