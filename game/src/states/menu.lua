@@ -1,7 +1,8 @@
 local font = love.graphics.getFont()
 
 local menu = {
-	text = love.graphics.newText(font, "Press Enter to begin!"),
+	text = love.graphics.newText(font,
+		"Controls: Press up to accelerate, down to reverse.\nPress left and right to steer.\nPress Enter to begin!"),
 	enter = function()
 	end,
 	exit = function()
@@ -13,7 +14,7 @@ local menu = {
 		end
 	end,
 	draw = function(self)
-		love.graphics.draw(self.text, 260, 180)
+		love.graphics.draw(self.text, 180, 160)
 	end
 }
 

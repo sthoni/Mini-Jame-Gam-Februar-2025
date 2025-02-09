@@ -9,13 +9,20 @@ local pausing = require "src.states.pausing"
 local shopping = require "src.states.shopping"
 
 local gameWidth, gameHeight = 640, 360
-local windowWidth, windowHeight = love.window.getDesktopDimensions()
-windowWidth, windowHeight = windowWidth * .5, windowHeight * .5
-
+local windowWidth, windowHeight = gameWidth, gameHeight
+local IS_DEBUG = os.getenv("LOCAL_LUA_DEBUGGER_VSCODE") == "1" and arg[2] == "debug"
+if IS_DEBUG then
+	windowWidth, windowHeight = love.window.getDesktopDimensions()
+	windowWidth, windowHeight = windowWidth * .5, windowHeight * .5
+end
 push:setupScreen(gameWidth, gameHeight, windowWidth, windowHeight,
-	{ fullscreen = false, resizable = true, pixelperfect = true, highdpi = true })
+	{ fullscreen = false, resizable = false, pixelperfect = true, highdpi = true })
 love.graphics.setBackgroundColor(.714, .835, .235, 1)
 push:setBorderColor(0, 0, 0, 1)
+
+function love.resize(w, h)
+	return push:resize(w, h)
+end
 
 function love.load()
 	love.graphics.setDefaultFilter('nearest', 'nearest')
