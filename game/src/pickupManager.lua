@@ -2,7 +2,7 @@ local Pickup = require "src.pickup"
 
 local function PickupManager()
 	return {
-		pickupsOnMap = {},
+		pickupsOnMap = { Pickup(1100, 1100) },
 		draw = function(self)
 			for _, pickup in pairs(self.pickupsOnMap) do
 				pickup:draw()

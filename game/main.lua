@@ -1,12 +1,9 @@
-local Level = require "src.level"
-local Projectile = require "src.projectile"
-local gamera = require "lib.gamera"
 local push = require "lib.push"
 Object = require "lib.classic" --class imitation for lua
 require("lib.batteries"):export()
+
 local Player = require "src.player"
-local EnemyManager = require "src.enemyManager"
-local PickupManager = require "src.pickupManager"
+local running = require "src.states.running"
 
 local gameWidth, gameHeight = 640, 360
 local windowWidth, windowHeight = love.window.getDesktopDimensions()
@@ -19,15 +16,8 @@ push:setBorderColor(0, 0, 0, 1)
 
 function love.load()
 	love.graphics.setDefaultFilter('nearest', 'nearest')
-	cam = gamera.new(0, 0, 6400, 3600)
-	cam:setWindow(0, 0, 640, 360)
-
-	enemyManager = EnemyManager()
-	level = Level()
-	projectile = Projectile()
-	player = Player(1000, 1000, 20, 60)
-	pickupManager = PickupManager()
-	pickupManager:spawn(vec2(1100, 1100))
+	player = Player(1000, 1000, 20, 70)
+	Game = state_machine({ running = running }, "running")
 	love.keyboard.setKeyRepeat(true)
 	local music = love.audio.newSource("assets/Mission Plausible.ogg", "stream")
 	music:setLooping(true)
@@ -36,21 +26,11 @@ function love.load()
 end
 
 function love.update(dt)
-	player:update(dt)
-	enemyManager:update(dt)
-	projectile:update(dt)
-	pickupManager:update(dt)
-	cam:setPosition(player.x, player.y)
+	Game:update(dt)
 end
 
 function love.draw()
 	push:start()
-	cam:draw(function(l, t, w, h)
-		level:draw()
-		projectile:draw()
-		enemyManager:draw()
-		player:draw()
-		pickupManager:draw()
-	end)
+	Game:draw()
 	push:finish()
 end
