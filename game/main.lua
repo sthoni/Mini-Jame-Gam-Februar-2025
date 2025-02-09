@@ -36,7 +36,6 @@ function love.update(dt)
     	print("collision")
 		shape:move(delta.x*2, delta.y*2)
 		player.collision_move(delta.x, delta.y)
-
 	end
 
 	player:update(dt)
