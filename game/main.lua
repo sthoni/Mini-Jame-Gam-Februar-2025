@@ -33,7 +33,7 @@ end
 function love.load()
 	love.graphics.setDefaultFilter('nearest', 'nearest')
 	Collider = HC.new(150)
-	player = Player(PLAYER_SPAWN_POINT_X, PLAYER_SPAWN_POINT_Y, 20, 60)
+	player = Player(PLAYER_SPAWN_POINT_X, PLAYER_SPAWN_POINT_Y, 20, 100)
 	love.keyboard.setKeyRepeat(true)
 	Game = state_machine({ running = running, menu = menu, pausing = pausing, shopping = shopping }, "menu")
 	local music = love.audio.newSource("assets/Mission Plausible.ogg", "stream")
