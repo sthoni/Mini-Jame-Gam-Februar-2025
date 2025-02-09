@@ -22,21 +22,16 @@ local function EnemyManager()
 
 	return {
 		enemiesOnMap = {},
-		getRandomSpawnPosition = function(self)
-			local playerVec = vec2(player.x, player.y)
-			local spawnVector = vec2(playerVec.x + love.math.random(-500, 500), playerVec.y + love.math.random(-540, 540))
-			if spawnVector:distance(playerVec) < 400 then
-				spawnVector = self:getRandomSpawnPosition()
-			end
-			return spawnVector
-		end,
+
 		spawn = function(self, enemyType)
 			-- add Enemy to OnMap
 			for key, enemy in pairs(enemiesData) do
 				if enemyType == key then
-					local spawnVector = self:getRandomSpawnPosition()
-					local enemyNew = Enemy(spawnVector.x, spawnVector.y, enemy.baseHp, enemy.maxSpeed, enemy.spriteX,
+					local enemyNew = Enemy(0, 0, enemy.baseHp, enemy.maxSpeed, enemy.spriteX,
 						enemy.spriteY, enemy.spriteW, enemy.spriteH)
+					local randomPosition = enemyNew:getRandomPosition()
+					enemyNew.x = randomPosition.x
+					enemyNew.y = randomPosition.y
 					table.insert(self.enemiesOnMap, enemyNew)
 				end
 			end
