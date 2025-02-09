@@ -69,7 +69,7 @@ function Player:new(x, y, baseHp, maxSpeed)
 		volume   = .1,
 		highgain = .5,
 	}
-	self.sounds:setVolume(0.3)
+	self.sounds:setVolume(0.1)
 	self.sounds:setLooping(true)
 	self.sounds:play()
 end
