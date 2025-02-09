@@ -24,7 +24,7 @@ function love.load()
 	enemyManager = EnemyManager()
 	level = Level()
 	projectile = Projectile()
-	player = Player(1000, 1000)
+	player = Player(1000, 1000, 20, 60)
 	love.keyboard.setKeyRepeat(true)
 end
 
