@@ -6,6 +6,8 @@ local gamera= require "lib.gamera"
 local push = require "lib.push"
 local Level = require "src.level"
 local Player = require "src.player"
+local PickupManager = require "src.pickupManager"
+
 local gameWidth, gameHeight = 640, 360
 local windowWidth, windowHeight = love.window.getDesktopDimensions()
 local Projectile = require "src.projectile"
@@ -26,15 +28,21 @@ function love.load()
 	enemyManager = EnemyManager()
 	level = Level()
 	projectile = Projectile()
-	player = Player(PLAYER_SPAWN_POINT_X, PLAYER_SPAWN_POINT_Y)
+	player = Player(PLAYER_SPAWN_POINT_X, PLAYER_SPAWN_POINT_Y, 20, 60)
+	pickupManager = PickupManager()
+	pickupManager:spawn(vec2(1100, 1100))
 	love.keyboard.setKeyRepeat(true)
-    Rect = Collider:rectangle(PLAYER_SPAWN_POINT_X,PLAYER_SPAWN_POINT_Y + 200,50,50)
+	local music = love.audio.newSource("assets/Mission Plausible.ogg", "stream")
+	music:setLooping(true)
+	music:setVolume(0.1)
+	music:play()
 end
 
 function love.update(dt)
 	player:update(dt)
 	enemyManager:update(dt)
 	projectile:update(dt)
+	pickupManager:update(dt)
 	cam:setPosition(player.x, player.y)
 end
 
@@ -47,8 +55,7 @@ function love.draw()
 		projectile:draw()
 		enemyManager:draw()
 		player:draw()
-		-- Rect:draw('fill')
-		-- player.collisionshape:draw('fill')
+		pickupManager:draw()
 	end)
 	push:finish()    
 end

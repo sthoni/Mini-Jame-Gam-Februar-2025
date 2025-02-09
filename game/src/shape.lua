@@ -21,13 +21,13 @@ end
 function Shape:update(dt)
 	self:move()
 	self.speed.abs = self.speed.abs + self.acc * 100 * dt
-	if self.speed.abs > self.maxspeed then
-		self.speed.abs = self.maxspeed
-	elseif self.speed.abs < -self.maxspeed then
-		self.speed.abs = -self.maxspeed
+	if self.speed.abs > self.maxSpeed then
+		self.speed.abs = self.maxSpeed
+	elseif self.speed.abs < -self.maxSpeed then
+		self.speed.abs = -self.maxSpeed
 	end
 	if self.rot ~= 0 then
-		self.angle = self.angle + 3 * math.abs(self.speed.abs) / self.maxspeed * self.rot * dt
+		self.angle = self.angle + 3 * math.abs(self.speed.abs) / self.maxSpeed * self.rot * dt
 	end
 	self.speed.x = self.speed.abs * math.cos(self.angle - math.pi / 2)
 	self.speed.y = self.speed.abs * math.sin(self.angle - math.pi / 2)

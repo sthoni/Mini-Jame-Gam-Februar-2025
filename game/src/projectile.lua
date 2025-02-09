@@ -23,16 +23,19 @@ local function Projectile()
 			end
 		end,
 		update = function(self, dt)
-			for _, projectile in ipairs(projectiles) do
+			for key, projectile in pairs(projectiles) do
 				local x_vel = projectile.speed * math.cos(projectile.angle - math.pi / 2) * dt
 				local y_vel = projectile.speed * math.sin(projectile.angle - math.pi / 2) * dt
 				projectile.x = projectile.x + x_vel
 				projectile.y = projectile.y + y_vel
+				if math.abs(player.x - projectile.x) > 400 then
+					projectiles[key] = nil
+				end
 			end
 		end,
 		draw = function(self)
 			projectile_tilemap_batch:clear()
-			for _, projectile in ipairs(projectiles) do
+			for _, projectile in pairs(projectiles) do
 				projectile_tilemap_batch:add(projectile.quad, math.floor(projectile.x), math.floor(projectile.y))
 			end
 			love.graphics.draw(projectile_tilemap_batch)
