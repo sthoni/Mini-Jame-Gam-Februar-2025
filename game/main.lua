@@ -4,6 +4,7 @@ require("lib.batteries"):export()
 
 local Player = require "src.player"
 local running = require "src.states.running"
+local menu = require "src.states.menu"
 
 local gameWidth, gameHeight = 640, 360
 local windowWidth, windowHeight = love.window.getDesktopDimensions()
@@ -17,7 +18,7 @@ push:setBorderColor(0, 0, 0, 1)
 function love.load()
 	love.graphics.setDefaultFilter('nearest', 'nearest')
 	player = Player(1000, 1000, 20, 70)
-	Game = state_machine({ running = running }, "running")
+	Game = state_machine({ running = running, menu = menu }, "menu")
 	love.keyboard.setKeyRepeat(true)
 	local music = love.audio.newSource("assets/Mission Plausible.ogg", "stream")
 	music:setLooping(true)
