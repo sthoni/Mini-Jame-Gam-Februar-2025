@@ -4,7 +4,6 @@
 -- Projectile wird nach Kollision oder Zeit zerstört
 
 local projectile_tilemap = love.graphics.newImage("assets/tiles.png")
-local projectile_tilemap_batch = love.graphics.newSpriteBatch(projectile_tilemap)
 local projectiles = {}
 
 local function Projectile()
@@ -16,6 +15,8 @@ local function Projectile()
 					quad = quad,
 					x = positionX,
 					y = positionY,
+					width = spriteWidth,
+					height = spriteHeight,
 					angle = angle,
 					damage = damage,
 					speed = speed,
@@ -34,11 +35,9 @@ local function Projectile()
 			end
 		end,
 		draw = function(self)
-			projectile_tilemap_batch:clear()
 			for _, projectile in pairs(projectiles) do
-				projectile_tilemap_batch:add(projectile.quad, math.floor(projectile.x), math.floor(projectile.y))
+				love.graphics.draw(projectile_tilemap, projectile.quad, projectile.x, projectile.y, projectile.angle)
 			end
-			love.graphics.draw(projectile_tilemap_batch)
 		end
 	}
 end
