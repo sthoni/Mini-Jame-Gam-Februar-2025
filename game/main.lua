@@ -1,22 +1,22 @@
 require "src.constants"
+require("lib.batteries"):export()
 local gamera= require "lib.gamera"
 local push = require "lib.push"
-HC = require 'lib.HC'
 local Level = require "src.level"
-local Projectile = require "src.projectile"
-Object = require "lib.classic" --class imitation for lua
-require("lib.batteries"):export()
 local Player = require "src.player"
-local EnemyManager = require "src.enemyManager"
-
 local gameWidth, gameHeight = 640, 360
 local windowWidth, windowHeight = love.window.getDesktopDimensions()
-windowWidth, windowHeight = windowWidth * .5, windowHeight * .5
+local Projectile = require "src.projectile"
+local EnemyManager = require "src.enemyManager"
+Object = require "lib.classic" --class imitation for lua
+HC = require 'lib.HC'
 
+
+windowWidth, windowHeight = windowWidth * .5, windowHeight * .5
 push:setupScreen(gameWidth, gameHeight, windowWidth, windowHeight,
+push:setBorderColor(0, 0, 0, 1)
 	{ fullscreen = false, resizable = true, pixelperfect = true, highdpi = true })
 love.graphics.setBackgroundColor(.714, .835, .235, 1)
-push:setBorderColor(0, 0, 0, 1)
 
 function love.load()
 	love.graphics.setDefaultFilter('nearest', 'nearest')
