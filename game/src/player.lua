@@ -42,11 +42,11 @@ function Player:update(dt)
 end
 
 function Player:check_enemy_collision(EnemyManager)
-	for _,enemy in pairs(EnemyManager.enemiesOnMap) do 
+	for _, enemy in pairs(EnemyManager.enemiesOnMap) do
 		local collides, dx, dy = self.collider.collisionshape:collidesWith(enemy.collider.collisionshape)
 		if collides then
 			enemy = nil
-			player.health:takeDamage(1)
+			player.health:takeDamage(.1)
 		end
 	end
 end

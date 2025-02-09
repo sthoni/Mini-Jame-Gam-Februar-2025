@@ -1,11 +1,21 @@
 local gamera = require "lib.gamera"
 
+local Player = require "src.player"
 local Level = require "src.level"
 local EnemyManager = require "src.enemyManager"
 local PickupManager = require "src.pickupManager"
 local Projectile = require "src.projectile"
 
 local font = love.graphics.getFont()
+
+function reset(running)
+	running.level = Level()
+	running.enemyManager = EnemyManager()
+	running.pickupManager = PickupManager()
+	running.projectile = Projectile()
+	running.highscore = 0
+	player = Player(PLAYER_SPAWN_POINT_X, PLAYER_SPAWN_POINT_Y, 20, 100)
+end
 
 local running = {
 	cam = gamera.new(0, 0, 6400, 3600),
