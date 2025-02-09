@@ -11,3 +11,7 @@ Das Spiel ist ein Vampire Survivors-Klon. Zunächst mit einem Maschinengewehr be
 ## Player Experience
 
 In einem Endlos-Level muss der Spieler möglichst 20 Minuten überleben. Die immer stärker werdenden Gegner muss er mit immer besseren Waffen besiegen. Der Spieler wird durch den Loot der Gegner immer besser und kann sich durch Upgrades individuell sein Fähigkeitenarsenal erweitern.
+
+## How to build
+
+Um ein Build zu erhalten, muss man im `game`-Folder folgenden Befehl ausführen: `makelove --config ..\tools\build\makelove.toml`

@@ -1,4 +1,4 @@
-local Shape = require "src.Shape"
+local Shape = require "src.shape"
 local Weapon = require "src.weapon"
 local Health = require "src.health"
 local Player = Shape:extend()
