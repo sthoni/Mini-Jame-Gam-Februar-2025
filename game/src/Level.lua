@@ -11,6 +11,7 @@ function Level()
 	local LEVEL_TILEMAP_HOUSE = love.graphics.newQuad(0, 102, 16, 16, LEVEL_TILEMAP)
 	local LEVEL_TILEMAP_HOUSE2 = love.graphics.newQuad(0, 119, 16, 16, LEVEL_TILEMAP)
 	local LEVEL_TILEMAP_TREEDOUBLE = love.graphics.newQuad(0, 85, 16, 16, LEVEL_TILEMAP)
+	local LEVEL_TILEMAP_GREEN = love.graphics.newQuad(17, 51, 16, 16, LEVEL_TILEMAP)
 
 
 	local tiles = {}
@@ -18,34 +19,27 @@ function Level()
 	for baseY = 0, LEVEL_HEIGHT, 16 do
 		for baseX = 0, LEVEL_WIDTH, 16 do
 			local quad = (
-			love.math.random() < .02 and LEVEL_TILEMAP_TREEDOUBLE or
-			love.math.random() < .03 and LEVEL_TILEMAP_TREE or
-			love.math.random() < .005 and LEVEL_TILEMAP_BUSH or
-			love.math.random() < .001 and LEVEL_TILEMAP_HOUSE or
-			love.math.random() < .001 and LEVEL_TILEMAP_HOUSE2 or
-			love.math.random() < 0.1 and LEVEL_TILEMAP_GRASS or 
-			love.math.random() < 0.1 and LEVEL_TILEMAP_GRASS2)
+				love.math.random() < .02 and LEVEL_TILEMAP_TREEDOUBLE or
+				love.math.random() < .03 and LEVEL_TILEMAP_TREE or
+				love.math.random() < .005 and LEVEL_TILEMAP_BUSH or
+				love.math.random() < .001 and LEVEL_TILEMAP_HOUSE or
+				love.math.random() < .001 and LEVEL_TILEMAP_HOUSE2 or
+				love.math.random() < 0.1 and LEVEL_TILEMAP_GRASS or
+				love.math.random() < 0.2 and LEVEL_TILEMAP_GRASS2 or
+				LEVEL_TILEMAP_GREEN)
 			if quad then
 				table.insert(tiles, {
 					quad = quad,
 					x = baseX,
 					y = baseY,
 					serial = #tiles,
-				})	
+				})
 			end
-			
 		end
 	end
 
 	return {
-		draw = function(self)		
-			table.sort(tiles, function (tile1, tile2)
-				if tile1.y ~= tile2.y then
-					return tile1.y < tile2.y
-				end
-				return tile1.serial < tile2.serial
-			end)
-
+		draw = function(self)
 			LEVEL_TILEMAP_BATCH:clear()
 			for _, tile in ipairs(tiles) do
 				LEVEL_TILEMAP_BATCH:add(tile.quad, math.floor(tile.x), math.floor(tile.y))
