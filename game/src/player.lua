@@ -41,7 +41,7 @@ end
 
 function Player:new(x, y)
 	Player.super.new(self, x, y)
-	self.test = math.random(1, 1000)
+	self.maxspeed = 160
 	self.h = 32
 	self.w = 32
 	self.velocity = 100
