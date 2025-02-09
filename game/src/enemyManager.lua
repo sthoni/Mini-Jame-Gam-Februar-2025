@@ -4,7 +4,7 @@ local function EnemyManager()
 	local enemiesData = {
 		normal = {
 			baseHp = 10,
-			maxSpeed = 40,
+			maxSpeed = 50,
 			spriteX = 72,
 			spriteY = 172,
 			spriteW = 19,
@@ -17,11 +17,22 @@ local function EnemyManager()
 			spriteY = 139,
 			spriteW = 30,
 			spriteH = 16
+		},
+		extreme = {
+			baseHp = 20,
+			maxSpeed = 80,
+			spriteX = 3,
+			spriteY = 173,
+			spriteW = 25,
+			spriteH = 15
 		}
 	}
 
 	return {
 		enemiesOnMap = {},
+
+		currentMaxEnemies = 50,
+		timeToNextLevel = 20,
 
 		spawn = function(self, enemyType)
 			-- add Enemy to OnMap
@@ -37,18 +48,26 @@ local function EnemyManager()
 			end
 		end,
 		update = function(self, dt)
-			if #self.enemiesOnMap < 200 then
-				if love.math.random() < 0.8 then
-					self:spawn("normal")
-				else
+			self.timeToNextLevel = self.timeToNextLevel - dt
+			if self.timeToNextLevel < 0 then
+				self.timeToNextLevel = 10
+				self.currentMaxEnemies = self.currentMaxEnemies + 30
+			end
+			if #self.enemiesOnMap < self.currentMaxEnemies then
+				if love.math.random() < 0.05 then
+					self:spawn("extreme")
+				elseif love.math.random() < 0.2 then
 					self:spawn("hard")
+				else
+					self:spawn("normal")
 				end
 			end
 			for i, enemy in ipairs(self.enemiesOnMap) do
 				enemy:update(dt)
 				for j = i, #self.enemiesOnMap do --, other_enemy in ipairs(self.enemiesOnMap) do
 					other_enemy = self.enemiesOnMap[j]
-					local collides, dx, dy = enemy.collider.collisionshape:collidesWith(other_enemy.collider.collisionshape)
+					local collides, dx, dy = enemy.collider.collisionshape:collidesWith(other_enemy.collider
+						.collisionshape)
 					if collides then
 						other_enemy:collision_move(dx, dy)
 					end
