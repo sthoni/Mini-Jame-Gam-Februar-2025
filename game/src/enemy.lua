@@ -18,15 +18,14 @@ function Enemy:move() -- key, scancode )
 	self.rot = 0
 end
 
-function Enemy:new(x, y, baseHp, baseVelocity, spriteX, spriteY, spriteW, spriteH)
+function Enemy:new(x, y, baseHp, maxSpeed, spriteX, spriteY, spriteW, spriteH)
 	Enemy.super.new(self, x, y)
 	self.w = spriteW
 	self.h = spriteH
 	self.hp = baseHp
-	self.velocity = baseVelocity
 	self.tileset = love.graphics.newImage("assets/ships.png")
 	self.quad = love.graphics.newQuad(spriteX, spriteY, self.w, self.h, self.tileset)
-	self.maxspeed = 50
+	self.maxSpeed = 50
 end
 
 function Enemy:draw()

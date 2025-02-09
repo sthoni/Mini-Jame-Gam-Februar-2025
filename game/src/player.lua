@@ -1,4 +1,4 @@
-local Shape = require "src.Shape"
+local Shape = require "src.shape"
 local Weapon = require "src.weapon"
 local Health = require "src.health"
 local Player = Shape:extend()
@@ -30,6 +30,8 @@ function Player:update(dt)
 	elseif love.keyboard.isDown("k") then
 		self.weapons.addWeapon(self.weapons, "lazerGun")
 	end
+	print(self.speed.abs)
+	self.sounds:setPitch(0.5 + (self.speed.abs / self.maxSpeed) * 0.4)
 	self.weapons.update(self.weapons, dt, self.x, self.y, self.angle)
 end
 
@@ -43,6 +45,15 @@ function Player:new(x, y, baseHp, maxSpeed)
 	self.quad = love.graphics.newQuad(34, 32, self.h, self.w, self.tileset)
 	self.weapons = Weapon(self.x, self.y)
 	self.health = Health(baseHp)
+	self.sounds = love.audio.newSource("assets/engine3.ogg", "stream")
+	self.sounds:setFilter {
+		type     = "lowpass",
+		volume   = .1,
+		highgain = .5,
+	}
+	self.sounds:setVolume(0.3)
+	self.sounds:setLooping(true)
+	self.sounds:play()
 end
 
 function Player:draw()
