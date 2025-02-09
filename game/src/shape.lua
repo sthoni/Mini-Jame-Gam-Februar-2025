@@ -36,7 +36,9 @@ function Shape:update(dt)
 	self.collider:update(dt, self.x + self.h / 2, self.y + self.w / 2)
 end
 
-function Shape:move()
+function Shape:collision_move(dx, dy)
+	self.x = self.x - dx
+	self.y = self.y - dy
 end
 
 return Shape

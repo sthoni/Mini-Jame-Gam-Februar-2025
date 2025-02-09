@@ -49,8 +49,15 @@ local function EnemyManager()
 					self:spawn("hard")
 				end
 			end
-			for _, enemy in pairs(self.enemiesOnMap) do
+			for i, enemy in ipairs(self.enemiesOnMap) do
 				enemy:update(dt)
+				for j = i, #self.enemiesOnMap do --, other_enemy in ipairs(self.enemiesOnMap) do
+					other_enemy = self.enemiesOnMap[j]
+					local collides, dx, dy = enemy.collider.collisionshape:collidesWith(other_enemy.collider.collisionshape)
+					if collides then
+						other_enemy:collision_move(dx, dy)
+					end
+				end
 			end
 		end,
 		draw = function(self)

@@ -1,7 +1,7 @@
 local CollisionObject = Object:extend()
 
 function CollisionObject:new(x, y)
-	self.collisionshape = Collider:circle(x, y, 6)
+	self.collisionshape = Collider:circle(x, y, 12)
 end
 
 function CollisionObject:update(dt, x, y)
@@ -16,7 +16,7 @@ end
 
 function CollisionObject:draw()
 	love.graphics.setColor(255,255,255)
-	self.collisionshape:draw('fill')
+	self.collisionshape:draw('line')
 end
 
 return CollisionObject
