@@ -7,7 +7,7 @@ function Enemy:move() -- key, scancode )
 	local diffVec = playerPosition - selfPosition
 
 	if selfPosition:distance(playerPosition) > 400 then
-		selfPosition = enemyManager:getRandomSpawnPosition()
+		selfPosition = self:getRandomPosition()
 		self.x = selfPosition.x
 		self.y = selfPosition.y
 	end
@@ -25,7 +25,7 @@ function Enemy:new(x, y, baseHp, maxSpeed, spriteX, spriteY, spriteW, spriteH)
 	self.hp = baseHp
 	self.tileset = love.graphics.newImage("assets/ships.png")
 	self.quad = love.graphics.newQuad(spriteX, spriteY, self.w, self.h, self.tileset)
-	self.maxSpeed = 50
+	self.maxSpeed = maxSpeed
 end
 
 function Enemy:draw()
@@ -34,6 +34,15 @@ function Enemy:draw()
 	love.graphics.rotate(self.angle)
 	love.graphics.draw(self.tileset, self.quad, -self.h / 2, -self.w / 2)
 	love.graphics.pop()
+end
+
+function Enemy:getRandomPosition()
+	local playerVec = vec2(player.x, player.y)
+	local randomPosition = vec2(playerVec.x + love.math.random(-500, 500), playerVec.y + love.math.random(-540, 540))
+	if randomPosition:distance(playerVec) < 400 then
+		randomPosition = self:getRandomPosition()
+	end
+	return randomPosition
 end
 
 return Enemy
