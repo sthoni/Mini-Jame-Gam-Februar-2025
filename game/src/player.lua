@@ -36,8 +36,16 @@ function Player:update(dt)
 	end
 	self.sounds:setPitch(0.5 + (self.speed.abs / self.maxSpeed) * 0.4)
 	self.weapons.update(self.weapons, dt, self.x, self.y, self.angle)
+end
 
-
+function Player:check_enemy_collision(EnemyManager)
+	for _,enemy in pairs(EnemyManager.enemiesOnMap) do 
+		local collides, dx, dy = self.collider.collisionshape:collidesWith(enemy.collider.collisionshape)
+		if collides then
+			enemy = nil
+			player.health:takeDamage(1)
+		end
+	end
 end
 
 function Player:new(x, y, baseHp, maxSpeed)

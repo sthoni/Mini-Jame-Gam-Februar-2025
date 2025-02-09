@@ -20,6 +20,7 @@ local running = {
 	update = function(self, dt)
 		player:update(dt)
 		self.enemyManager:update(dt)
+		player:check_enemy_collision(self.enemyManager)
 		self.projectile:update(dt)
 		self.pickupManager:update(dt)
 		self.cam:setPosition(player.x, player.y)
