@@ -23,6 +23,10 @@ function Player:move() -- key, scancode )
 	player.acc = acc
 end
 
+function Player:collision_move(dx, dy)
+	-- player.speed.abs = 0
+end
+
 function Player:update(dt)
 	Player.super.update(self, dt)
 	if love.keyboard.isDown("h") then
@@ -32,10 +36,13 @@ function Player:update(dt)
 	end
 	self.sounds:setPitch(0.5 + (self.speed.abs / self.maxSpeed) * 0.4)
 	self.weapons.update(self.weapons, dt, self.x, self.y, self.angle)
+
+
 end
 
 function Player:new(x, y, baseHp, maxSpeed)
 	Player.super.new(self, x, y)
+	self.name = "player"
 	self.maxSpeed = maxSpeed
 	self.h = 32
 	self.w = 32
@@ -59,6 +66,7 @@ end
 function Player:draw()
 	love.graphics.push("all")
 	love.graphics.translate(self.x + self.h / 2, self.y + self.w / 2)
+	self.collider:draw()
 	self.health:draw()
 	love.graphics.rotate(self.angle)
 	love.graphics.draw(self.tileset, self.quad, -self.h / 2, -self.w / 2)

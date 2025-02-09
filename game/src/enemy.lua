@@ -34,6 +34,7 @@ function Enemy:draw()
 	love.graphics.rotate(self.angle)
 	love.graphics.draw(self.tileset, self.quad, -self.h / 2, -self.w / 2)
 	love.graphics.pop()
+	self.collider:draw()
 end
 
 function Enemy:getRandomPosition()
