@@ -29,6 +29,10 @@ function love.load()
 	pickupManager = PickupManager()
 	pickupManager:spawn(vec2(1100, 1100))
 	love.keyboard.setKeyRepeat(true)
+	local music = love.audio.newSource("assets/Mission Plausible.ogg", "stream")
+	music:setLooping(true)
+	music:setVolume(0.1)
+	music:play()
 end
 
 function love.update(dt)
