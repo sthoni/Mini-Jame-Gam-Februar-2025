@@ -20,6 +20,11 @@ function Enemy:move() -- key, scancode )
 	self.rot = 0
 end
 
+function Enemy:collision_move(dx,dy)
+	self.x = self.x + dx
+	self.y = self.y + dy
+end
+
 function Enemy:new(x, y, baseHp, baseVelocity)
 	Enemy.super.new(self, x, y)
 	self.h = 32
@@ -36,6 +41,7 @@ function Enemy:draw()
 	love.graphics.translate(self.x + self.h / 2, self.y + self.w / 2)
 	love.graphics.rotate(self.angle)
 	love.graphics.draw(self.tileset, self.quad, -self.h / 2, -self.w / 2)
+	self.collider:draw()
 	love.graphics.pop()
 end
 
