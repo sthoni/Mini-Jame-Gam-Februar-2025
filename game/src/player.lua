@@ -30,7 +30,6 @@ function Player:update(dt)
 	elseif love.keyboard.isDown("k") then
 		self.weapons.addWeapon(self.weapons, "lazerGun")
 	end
-	print(self.speed.abs)
 	self.sounds:setPitch(0.5 + (self.speed.abs / self.maxSpeed) * 0.4)
 	self.weapons.update(self.weapons, dt, self.x, self.y, self.angle)
 end
@@ -45,6 +44,7 @@ function Player:new(x, y, baseHp, maxSpeed)
 	self.quad = love.graphics.newQuad(34, 32, self.h, self.w, self.tileset)
 	self.weapons = Weapon(self.x, self.y)
 	self.health = Health(baseHp)
+	self.xp = 0
 	self.sounds = love.audio.newSource("assets/engine3.ogg", "stream")
 	self.sounds:setFilter {
 		type     = "lowpass",

@@ -6,6 +6,7 @@ Object = require "lib.classic" --class imitation for lua
 require("lib.batteries"):export()
 local Player = require "src.player"
 local EnemyManager = require "src.enemyManager"
+local PickupManager = require "src.pickupManager"
 
 local gameWidth, gameHeight = 640, 360
 local windowWidth, windowHeight = love.window.getDesktopDimensions()
@@ -25,6 +26,8 @@ function love.load()
 	level = Level()
 	projectile = Projectile()
 	player = Player(1000, 1000, 20, 60)
+	pickupManager = PickupManager()
+	pickupManager:spawn(vec2(1100, 1100))
 	love.keyboard.setKeyRepeat(true)
 end
 
@@ -32,6 +35,7 @@ function love.update(dt)
 	player:update(dt)
 	enemyManager:update(dt)
 	projectile:update(dt)
+	pickupManager:update(dt)
 	cam:setPosition(player.x, player.y)
 end
 
@@ -42,6 +46,7 @@ function love.draw()
 		projectile:draw()
 		enemyManager:draw()
 		player:draw()
+		pickupManager:draw()
 	end)
 	push:finish()
 end
